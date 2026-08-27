@@ -20,10 +20,35 @@ class KoperasiPage extends StatefulWidget {
   State<KoperasiPage> createState() => _KoperasiPageState();
 }
 
+IconData getCategoryIcon(String kategori) {
+  switch (kategori.toLowerCase()) {
+    case 'atk':
+      return Icons.book; 
+    case 'makanan':
+      return Icons.fastfood; 
+    case 'minuman':
+      return Icons.local_drink;  
+    default:
+      return Icons.inventory_2;
+  }
+}
+
 class _KoperasiPageState extends State<KoperasiPage> {
   // Nilai stok dapat diubah di sini
   int stok = 0; 
-
+  
+  final List<Map<String, dynamic>> daftarBarang = [
+    {'nama': 'kabel lan', 'kategori': 'atk', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'kaos kaki', 'kategori': 'atk', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'monitor', 'kategori': 'elektronik', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'tas sekulah', 'kategori': 'lain', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'habibil', 'kategori': 'lain', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'habubul', 'kategori': 'lain', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'hababal', 'kategori': 'lain', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'habobol', 'kategori': 'lain', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'hababil', 'kategori': 'lain', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10},
+    {'nama': 'iwak', 'kategori': 'lain', 'harga_anggota': 3000, 'harga_umum': 3500, 'stok': 10}
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,19 +58,20 @@ class _KoperasiPageState extends State<KoperasiPage> {
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Card(
-        margin: const EdgeInsets.all(20),
-        child: ListTile(
-          leading: const Icon(Icons.inventory_2),
-          title: const Text('buku tulis'),
-          subtitle: const Text('anggota Rp 3.000 | umum Rp 3.500'),
-          trailing: Text(
-            'Stok $stok', // Menggunakan interpolasi string yang benar
-            style: TextStyle(
-              color: stok == 0 ? Colors.red : Colors.green,
+      body: ListView.builder(
+        itemCount: daftarBarang.length,
+        itemBuilder: (context, index) {
+          final barang = daftarBarang[index];
+          return Card(
+            margin: const EdgeInsets.all(8),
+            child: ListTile(
+              leading: Icon(getCategoryIcon(barang['kategori'] ?? '')),
+              title: Text(barang['nama']),
+              subtitle: Text('Anggota Rp ${barang['harga_anggota']} | Umum Rp ${barang['harga_umum']}'),
+              trailing: Text('Stok ${barang['stok']}'),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
