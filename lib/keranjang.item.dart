@@ -22,11 +22,18 @@ class _KeranjangItemState extends State<KeranjangItem> {
   @override
   void initState() {
     super.initState();
-    jumlah = widget.initialQuantity;
+    print('initState dipanggil');
+  }
+
+  @override
+  void dispose() {
+    print('dispose dipanggil');
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    print('build dipanggil');
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
