@@ -103,17 +103,35 @@ class _KoperasiPageState extends State<KoperasiPage> {
               },
             ),
           ),
+          Text ('lebar layar : ' + MediaQuery.of (context).size.width.toStringAsFixed(0)),
           Expanded(
-            child: ListView.builder(
-              itemCount: barangTersedia.length,
-              itemBuilder: (context, index) {
-                final barang = barangTersedia[index];
-                return Barangcard(
-                  nama: barang['nama'] as String,
-                  hargaAnggota: barang['harga_anggota'] as int,
-                  stok: barang['stok'] as int,
-                  kategori: barang['kategori'] as String,
-                  sorot: (barang['stok'] as int) <= 1,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                int kolom;
+                if (constraints.maxWidth < 600) {
+                  kolom = 1;
+                } else if (constraints.maxWidth < 900) {
+                  kolom = 2;
+                } else {
+                  kolom = 3;
+                }
+
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: kolom,
+                    childAspectRatio: 3,
+                  ),
+                  itemCount: barangTersedia.length,
+                  itemBuilder: (context, index) {
+                    final barang = barangTersedia[index];
+                    return Barangcard(
+                      nama: barang['nama'] as String,
+                      hargaAnggota: barang['harga_anggota'] as int,
+                      stok: barang['stok'] as int,
+                      kategori: barang['kategori'] as String,
+                      sorot: (barang['stok'] as int) <= 1,
+                    );
+                  },
                 );
               },
             ),
