@@ -49,7 +49,25 @@ class _BarangcardState extends State<Barangcard> {
       color: widget.sorot ? Colors.yellow[100] : null,
       child: ListTile(
         leading: Icon(icon),
-        title: Text(widget.nama),
+        title: Row(
+          children: [
+            Expanded(
+              child: Text(
+                widget.nama,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              'Stok: ${widget.stok}',
+              style: TextStyle(
+                fontSize: 12,
+                color: widget.stok > 0 ? Colors.grey[700] : Colors.red,
+              ),
+            ),
+          ],
+        ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

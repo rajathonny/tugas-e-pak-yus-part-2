@@ -17,4 +17,15 @@ void main() {
     expect(find.text('kabel lan'), findsOneWidget);
     expect(find.text('iwak'), findsNothing);
   });
+
+  testWidgets('long product names are wrapped in an Expanded widget inside a row', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    final expandedDescendants = find.descendant(
+      of: find.byType(Row),
+      matching: find.byType(Expanded),
+    );
+
+    expect(expandedDescendants, findsAtLeastNWidgets(1));
+  });
 }
