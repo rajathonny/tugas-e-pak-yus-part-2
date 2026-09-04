@@ -22,29 +22,22 @@ class _KeranjangItemState extends State<KeranjangItem> {
   @override
   void initState() {
     super.initState();
-    print('initState dipanggil');
-  }
-
-  @override
-  void dispose() {
-    print('dispose dipanggil');
-    super.dispose();
+    jumlah = widget.initialQuantity.clamp(1, widget.stok);
   }
 
   @override
   Widget build(BuildContext context) {
-    print('build dipanggil');
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         IconButton(
           onPressed: () {
-            setState(() {
-              if (jumlah > 1) {
+            if (jumlah > 1) {
+              setState(() {
                 jumlah--;
                 widget.onQuantityChanged?.call(jumlah);
-              }
-            });
+              });
+            }
           },
           icon: const Icon(Icons.remove),
         ),
@@ -58,9 +51,9 @@ class _KeranjangItemState extends State<KeranjangItem> {
               });
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: const Text('Stok tidak mencukupi'),
-                  duration: const Duration(seconds: 2),
+                const SnackBar(
+                  content: Text('Stok tidak mencukupi'),
+                  duration: Duration(seconds: 2),
                 ),
               );
             }
