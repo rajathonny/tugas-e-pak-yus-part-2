@@ -103,7 +103,6 @@ class _KoperasiPageState extends State<KoperasiPage> {
               },
             ),
           ),
-          Text ('lebar layar : ' + MediaQuery.of (context).size.width.toStringAsFixed(0)),
           Expanded(
             child: LayoutBuilder(
               builder: (context, constraints) {
